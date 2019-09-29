@@ -1,0 +1,21 @@
+<section class="task d-flex justify-content-end align-items-center" [ngClass]="{'is-not-top': index != 0}">
+  <section class="left-side">
+    <section class="description">
+      <p class="task-name">{{task.name}}</p>
+      <p>{{task.project}}</p>
+    </section>
+  </section>
+  <section class="time">
+    {{prettyTime}}
+  </section>
+  <section class="btn-group functions">
+      <button class="btn btn-primary" (click)="startTimer()"><i class="fa fa-play"></i></button>
+      <button class="btn btn-primary" (click)="pauseTimer()"><i class="fa fa-pause"></i></button>
+      <button class="btn btn-primary"><i class="fa fa-stop"></i></button>
+      <button class="btn btn-primary" (click)="resetTimer()"><i class="fa fa-refresh"></i></button>
+      <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+  </section>
+  <section>
+    
+  </section>
+</section>

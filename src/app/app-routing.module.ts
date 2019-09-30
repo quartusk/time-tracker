@@ -5,7 +5,7 @@ import { TaskListComponent } from './task-list/task-list.component';
 const routes: Routes = [
   { path: 'current', component: TaskListComponent },
   { path: '', redirectTo: '/current', pathMatch: 'full'}
-]
+];
 
 @NgModule({
   declarations: [],

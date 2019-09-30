@@ -10,18 +10,18 @@ export class TaskService {
   constructor() { }
 
   saveTask(task: ITask): void {
-    this.setHighestId(task);
-    localStorage.setItem(task.id.toString(), JSON.stringify(task));
+    localStorage.setItem(`time-tracker-${task.id}`, JSON.stringify(task));
   }
 
   getTask(id: number): Observable<ITask> {
-    return of(JSON.parse(localStorage.getItem(id.toString())));
+    return of(JSON.parse(localStorage.getItem(`time-tracker-${id}`)));
   }
 
   getCurrentTasks(): Observable<ITask[]> {
     const tasks: ITask[] = [];
+    const highestId = this.getHighestIdSync();
 
-    for (let i = 1; i <= Number(localStorage.getItem('highest-id')); i++) {
+    for (let i = 1; i <= highestId; i++) {
       this.getTask(i).subscribe((task) => {
         if (task.isCurrent) {
           tasks.push(task);
@@ -32,17 +32,28 @@ export class TaskService {
     return of(tasks);
   }
 
-  getHigestId(): Observable<number> {
-    if (localStorage.getItem('highest-id')) {
-      return of(Number(localStorage.getItem('highest-id')));
-    }
-
-    return of(0);
+  delete(id: number): void {
+    localStorage.removeItem(`time-tracker-${id}`);
   }
 
-  private setHighestId(task: ITask): void {
-    if (localStorage.getItem('highest-id') === null || Number(localStorage.getItem('highest-id')) < task.id) {
-      localStorage.setItem('highest-id', task.id.toString());
+  getHighestId(): Observable<number> {
+    return of(this.getHighestIdSync());
+  }
+
+  private getHighestIdSync(): number {
+    const allEntries = Object.entries(localStorage);
+    let highestId = 0;
+
+    for (const entry of allEntries) {
+      if (entry[0].toString().indexOf('time-tracker') !== 1) {
+        const task: ITask = JSON.parse(entry[1]);
+
+        if (task.id > highestId) {
+          highestId = task.id;
+        }
+      }
     }
+
+    return highestId;
   }
 }

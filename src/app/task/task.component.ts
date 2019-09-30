@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ITask } from '../models/task';
 import { TaskService } from '../task.service';
 
@@ -11,11 +11,14 @@ export class TaskComponent implements OnInit {
 
   @Input() task: ITask;
   @Input() index: number;
+  @Output() deleted: EventEmitter<number>;
   prettyTime: string;
   timer: number;
   isActive: boolean;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService) {
+    this.deleted = new EventEmitter<number>();
+  }
 
   ngOnInit() {
     this.setPrettyTime();
@@ -67,12 +70,16 @@ export class TaskComponent implements OnInit {
     }
   }
 
+  delete(): void {
+    this.deleted.emit(this.task.id);
+  }
+
   private saveTask(): void {
     this.taskService.saveTask(this.task);
   }
 
   private determineDifferenceInTime(dateStarted: any, currentDate: any) {
-    return Math.floor(Math.abs(dateStarted - currentDate) / 1000);;
+    return Math.floor(Math.abs(dateStarted - currentDate) / 1000);
   }
 
   private increaseTime(dateStarted: Date, timeAlreadyElapsed: number): void {

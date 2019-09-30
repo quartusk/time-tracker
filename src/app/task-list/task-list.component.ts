@@ -11,15 +11,15 @@ export class TaskListComponent implements OnInit {
 
   tasks: ITask[];
 
-  constructor(private taskService: TaskService) {     
+  constructor(private taskService: TaskService) {
   }
 
   ngOnInit() {
-    this.taskService.getHigestId().subscribe((highestId: number) => {
-      if (highestId != 0) {
+    this.taskService.getHighestId().subscribe((highestId: number) => {
+      if (highestId !== 0) {
         this.taskService.getCurrentTasks().subscribe((currentTasks: ITask[]) => { this.tasks = currentTasks; });
       } else {
-        this.tasks = [];        
+        this.tasks = [];
 
         this.tasks.push({
           name: 'Task 1',
@@ -38,4 +38,8 @@ export class TaskListComponent implements OnInit {
     });
   }
 
+  deleteTask(id: number) {
+    this.taskService.delete(id);
+    this.tasks = this.tasks.filter((val: ITask) => val.id !== id);
+  }
 }

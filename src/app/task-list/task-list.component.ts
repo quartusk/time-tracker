@@ -9,14 +9,12 @@ import { TaskService } from '../task.service';
 })
 export class TaskListComponent implements OnInit {
 
-  navActiveStatus: boolean[];
   tasks: ITask[];
 
   constructor(private taskService: TaskService) {     
   }
 
   ngOnInit() {
-    this.navActiveStatus = [true, false, false];
     this.taskService.getHigestId().subscribe((highestId: number) => {
       if (highestId != 0) {
         this.taskService.getCurrentTasks().subscribe((currentTasks: ITask[]) => { this.tasks = currentTasks; });
@@ -38,12 +36,6 @@ export class TaskListComponent implements OnInit {
         this.taskService.saveTask(this.tasks[0]);
       }
     });
-  }
-
-  setNavActiveStatus(navIndex: number): void {
-    for (let i = 0; i < 3; i++) {
-      this.navActiveStatus[i] = i === navIndex;
-    }
   }
 
 }

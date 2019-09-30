@@ -1,15 +1,15 @@
 <main class="container">
-  <section class="task-list">
+  <section class="menu">
     <header class="d-flex justify-content-lg-end align-items-center">
       <h1 class="title">Time Tracker</h1>
       <button class="btn btn-primary"><i class="fa fa-plus"></i> Add Task</button>
       <input type="text" placeholder="Search" class="form-control search">
     </header>
     <nav>
-      <a href="#" [ngClass]="{'is-active': navActiveStatus[0]}" (click)="setNavActiveStatus(0)">Current</a>
+      <a routerLink="current" [ngClass]="{'is-active': navActiveStatus[0]}" (click)="setNavActiveStatus(0)">Current</a>
       <a href="#" [ngClass]="{'is-active': navActiveStatus[1]}" (click)="setNavActiveStatus(1)">Archive</a>
       <a href="#" [ngClass]="{'is-active': navActiveStatus[2]}" (click)="setNavActiveStatus(2)">All</a>
     </nav>
-    <app-task-list></app-task-list>
+    <router-outlet></router-outlet>
   </section>
 </main>

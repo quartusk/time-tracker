@@ -15,8 +15,8 @@ export class CreateTaskComponent implements OnInit {
   createForm: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<AppComponent>, 
-    private taskService: TaskService, 
+    public dialogRef: MatDialogRef<AppComponent>,
+    private taskService: TaskService,
     private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -27,27 +27,22 @@ export class CreateTaskComponent implements OnInit {
   }
 
   save(form: FormGroup): void {
-    if (!form.valid) {
-      alert('Nee')
-    } else {
-      this.taskService.getHighestId().subscribe((highestId: number) => {
-        const task: ITask = {
-          id: highestId + 1,
-          name: form.value.taskName,
-          project: form.value.projectName,
-          isCurrent: true,
-          time: {
-            hours: 0,
-            minutes: 0,
-            seconds: 0
-          }
-        };
-  
-        this.taskService.saveTask(task);
-        this.taskService.announceTaskAdded(task);
-        this.dialogRef.close();
-      });
-    }
-    
+    this.taskService.getHighestId().subscribe((highestId: number) => {
+      const task: ITask = {
+        id: highestId + 1,
+        name: form.value.taskName,
+        project: form.value.projectName,
+        isCurrent: true,
+        time: {
+          hours: 0,
+          minutes: 0,
+          seconds: 0
+        }
+      };
+
+      this.taskService.saveTask(task);
+      this.taskService.announceTaskAdded(task);
+      this.dialogRef.close();
+    });
   }
 }

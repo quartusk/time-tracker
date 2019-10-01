@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { CreateTaskComponent } from './create-task/create-task.component';
+import { TaskService } from './services/task.service';
+import { ITask } from './models/task';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +13,8 @@ export class AppComponent implements OnInit {
 
   navActiveStatus: boolean[];
 
+  constructor(public dialog: MatDialog, private taskService: TaskService) {}
+
   ngOnInit(): void {
     this.navActiveStatus = [true, false, false];
   }
@@ -17,5 +23,11 @@ export class AppComponent implements OnInit {
     for (let i = 0; i < 3; i++) {
       this.navActiveStatus[i] = i === navIndex;
     }
+  }
+
+  openCreateDialog(): void {
+    const dialogRef = this.dialog.open(CreateTaskComponent, {
+      width: '400px',
+    });
   }
 }

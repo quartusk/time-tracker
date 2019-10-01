@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ITask } from '../models/task';
-import { TaskService } from '../task.service';
+import { TaskService } from '../services/task.service';
 
 @Component({
   selector: 'app-task',
@@ -90,5 +90,4 @@ export class TaskComponent implements OnInit {
     this.task.time.seconds = secondsElapsed % 60;
     this.setPrettyTime();
   }
-
 }

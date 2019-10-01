@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
 import { ITask } from '../models/task';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  constructor() { }
+  private taskAddedSource = new Subject<ITask>();
+  taskAdded = this.taskAddedSource.asObservable();
 
   saveTask(task: ITask): void {
     localStorage.setItem(`time-tracker-${task.id}`, JSON.stringify(task));
+  }
+
+  announceTaskAdded(task: ITask) {
+    this.taskAddedSource.next(task);
   }
 
   getTask(id: number): Observable<ITask> {

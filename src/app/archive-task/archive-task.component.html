@@ -1,0 +1,15 @@
+<section class="task d-flex justify-content-end align-items-center" [ngClass]="{'is-not-top': index != 0}">
+  <section class="left-side">
+    <section class="description">
+      <p class="task-name">{{task.name}}</p>
+      <p>{{task.project}}</p>
+    </section>
+  </section>
+  <section class="time">
+    {{prettyTime}}
+  </section>
+  <button class="btn btn-primary" (click)="moveToCurrent()"><i class="fa fa-reply"></i></button>
+  <button class="btn btn-danger" (click)="delete()"><i class="fa fa-trash"></i></button>
+  <section>
+  </section>
+</section>

@@ -1,3 +1,3 @@
-<section class="tasks">
-  <app-task *ngFor="let task of tasks; let i = index" [task]="task" [index]="i" (deleted)="deleteTask($event)"></app-task>
+<section>
+  <app-task *ngFor="let task of tasks; let i = index" [task]="task" [index]="i" (deleted)="deleteTask($event)" (stopped)="stopTask($event)"></app-task>
 </section>

@@ -1,0 +1,25 @@
+.task-name {
+  font-weight: 500;
+  font-size: 1.3em;
+  margin-bottom: 2px;
+}
+
+.task {
+  padding: 10px;
+}
+
+.left-side {
+  margin-right: auto;
+}
+
+.time {
+  margin-right: 20px;
+}
+
+.is-not-top {
+  border-top: 1px solid #efefef;
+}
+
+.btn-danger {
+  margin-left: 10px;
+}

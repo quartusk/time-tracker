@@ -10,13 +10,17 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { TaskComponent } from './task/task.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CreateTaskComponent } from './create-task/create-task.component';
+import { ArchiveListComponent } from './archive-list/archive-list.component';
+import { ArchiveTaskComponent } from './archive-task/archive-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskListComponent,
     TaskComponent,
-    CreateTaskComponent
+    CreateTaskComponent,
+    ArchiveListComponent,
+    ArchiveTaskComponent
   ],
   imports: [
     BrowserModule,

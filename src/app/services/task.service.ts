@@ -43,6 +43,21 @@ export class TaskService {
     return of(tasks);
   }
 
+  getArchivedTasks(): Observable<ITask[]> {
+    const tasks: ITask[] = [];
+    const highestId = this.getHighestIdSync();
+
+    for (let i = 1; i <= highestId; i++) {
+      this.getTask(i).subscribe((task) => {
+        if (!task.isCurrent) {
+          tasks.push(task);
+        }
+      });
+    }
+
+    return of(tasks);
+  }
+
   delete(id: number): void {
     localStorage.removeItem(`time-tracker-${id}`);
   }

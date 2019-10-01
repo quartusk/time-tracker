@@ -11,7 +11,7 @@
   <section class="btn-group functions">
       <button class="btn btn-primary" (click)="startTimer()" [disabled]="isActive"><i class="fa fa-play"></i></button>
       <button class="btn btn-primary" (click)="pauseTimer()" [disabled]="!isActive"><i class="fa fa-pause"></i></button>
-      <button class="btn btn-primary" [disabled]="!canBeStopped"><i class="fa fa-stop"></i></button>
+      <button class="btn btn-primary" (click)="stopTimer()" [disabled]="!canBeStopped"><i class="fa fa-stop"></i></button>
       <button class="btn btn-primary" (click)="resetTimer()" [disabled]="!canBeStopped"><i class="fa fa-refresh"></i></button>
   </section>
   <button class="btn btn-danger" (click)="delete()"><i class="fa fa-trash"></i></button>

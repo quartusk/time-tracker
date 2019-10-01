@@ -7,8 +7,7 @@
     </header>
     <nav>
       <a routerLink="current" [ngClass]="{'is-active': navActiveStatus[0]}" (click)="setNavActiveStatus(0)">Current</a>
-      <a href="#" [ngClass]="{'is-active': navActiveStatus[1]}" (click)="setNavActiveStatus(1)">Archive</a>
-      <a href="#" [ngClass]="{'is-active': navActiveStatus[2]}" (click)="setNavActiveStatus(2)">All</a>
+      <a routerLink="archive" [ngClass]="{'is-active': navActiveStatus[1]}" (click)="setNavActiveStatus(1)">Archive</a>
     </nav>
     <router-outlet></router-outlet>
   </section>

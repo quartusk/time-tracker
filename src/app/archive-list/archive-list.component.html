@@ -1,0 +1,3 @@
+<section class="tasks">
+  <app-archive-task *ngFor="let task of tasks; let i = index" [index]="i" [task]="task" (movedToCurrent)="moveTaskToCurrent($event)" (deleted)="deleteTask($event)"></app-archive-task>
+</section>

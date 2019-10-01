@@ -12,6 +12,7 @@ export class TaskComponent implements OnInit {
   @Input() task: ITask;
   @Input() index: number;
   @Output() deleted: EventEmitter<number>;
+  @Output() stopped: EventEmitter<number>;
   prettyTime: string;
   timer: number;
   isActive: boolean;
@@ -19,6 +20,7 @@ export class TaskComponent implements OnInit {
 
   constructor(private taskService: TaskService) {
     this.deleted = new EventEmitter<number>();
+    this.stopped = new EventEmitter<number>();
   
     taskService.taskStarted.subscribe((task: ITask) => {
       if (task.id !== this.task.id) {
@@ -74,14 +76,19 @@ export class TaskComponent implements OnInit {
 
   pauseTimer(): void {
     if (this.isActive) {
-      this.task.dateEnded = new Date();
       this.isActive = false;
       window.clearInterval(this.timer);
     }
   }
 
-  delete(): void {
-    this.taskService.delete(this.task.id);
+  stopTimer(): void {
+    this.pauseTimer();
+    this.task.dateEnded = new Date();
+    this.task.isCurrent = false;
+    this.stopped.emit(this.task.id);
+  }
+
+  delete(): void {    
     this.deleted.emit(this.task.id);
   }
 

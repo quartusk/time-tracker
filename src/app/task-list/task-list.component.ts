@@ -23,26 +23,17 @@ export class TaskListComponent implements OnInit {
         this.taskService.getCurrentTasks().subscribe((currentTasks: ITask[]) => { this.tasks = currentTasks; });
       } else {
         this.tasks = [];
-
-        this.tasks.push({
-          name: 'Task 1',
-          project: 'Project 1',
-          id: highestId + 1,
-          isCurrent: true,
-          time: {
-            hours: 0,
-            minutes: 0,
-            seconds: 0
-          }
-        });
-
-        this.taskService.saveTask(this.tasks[0]);
       }
     });
+
+    window.onbeforeunload = () => {
+      this.tasks.forEach((task: ITask) => {
+        this.taskService.saveTask(task);
+      });
+    }
   }
 
   deleteTask(id: number) {
-    this.taskService.delete(id);
     this.tasks = this.tasks.filter((val: ITask) => val.id !== id);
   }
 }

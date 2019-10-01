@@ -66,16 +66,12 @@ export class TaskComponent implements OnInit {
       this.task.dateEnded = new Date();
       this.isActive = false;
       window.clearInterval(this.timer);
-      this.saveTask();
     }
   }
 
   delete(): void {
+    this.taskService.delete(this.task.id);
     this.deleted.emit(this.task.id);
-  }
-
-  private saveTask(): void {
-    this.taskService.saveTask(this.task);
   }
 
   private determineDifferenceInTime(dateStarted: any, currentDate: any) {

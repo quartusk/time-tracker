@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
 import { CreateTaskComponent } from './create-task/create-task.component';
 import { TaskService } from './services/task.service';
-import { ITask } from './models/task';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,6 @@ import { ITask } from './models/task';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
   navActiveStatus: boolean[];
 
   constructor(public dialog: MatDialog, private taskService: TaskService) {}

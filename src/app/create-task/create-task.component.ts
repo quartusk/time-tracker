@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+
 import { AppComponent } from '../app.component';
 import { TaskService } from '../services/task.service';
 import { ITask } from '../models/task';
@@ -9,15 +10,11 @@ import { ITask } from '../models/task';
   templateUrl: './create-task.component.html',
   styleUrls: ['./create-task.component.css']
 })
-export class CreateTaskComponent implements OnInit {
-
+export class CreateTaskComponent {
   taskName: string;
   projectName: string;
 
   constructor(public dialogRef: MatDialogRef<AppComponent>, private taskService: TaskService) { }
-
-  ngOnInit() {
-  }
 
   save(): void {
     this.taskService.getHighestId().subscribe((highestId: number) => {

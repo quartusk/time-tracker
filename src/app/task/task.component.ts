@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
 import { ITask } from '../models/task';
 import { TaskService } from '../services/task.service';
 
@@ -8,7 +9,6 @@ import { TaskService } from '../services/task.service';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
-
   @Input() task: ITask;
   @Input() index: number;
   @Output() deleted: EventEmitter<number>;

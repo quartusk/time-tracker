@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ITask } from '../models/task';
 import { Observable, of, Subject } from 'rxjs';
+
+import { ITask } from '../models/task';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-
   private taskAddedSource = new Subject<ITask>();
   taskAdded = this.taskAddedSource.asObservable();
 

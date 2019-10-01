@@ -8,10 +8,16 @@ import { ITask } from '../models/task';
 })
 export class TaskService {
   private taskAddedSource = new Subject<ITask>();
+  private taskStartedSource = new Subject<ITask>();
   taskAdded = this.taskAddedSource.asObservable();
+  taskStarted = this.taskStartedSource.asObservable();
 
   saveTask(task: ITask): void {
     localStorage.setItem(`time-tracker-${task.id}`, JSON.stringify(task));
+  }
+
+  announceTaskStarted(task: ITask) {
+    this.taskStartedSource.next(task);
   }
 
   announceTaskAdded(task: ITask) {

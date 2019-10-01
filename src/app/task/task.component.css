@@ -20,6 +20,10 @@
   border-top: 1px solid #efefef;
 }
 
-.remove {
-  color: #dc3545;
+.btn:disabled {
+  cursor: not-allowed;
+}
+
+.btn-danger {
+  margin-left: 10px;
 }

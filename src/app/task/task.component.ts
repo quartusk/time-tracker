@@ -15,14 +15,22 @@ export class TaskComponent implements OnInit {
   prettyTime: string;
   timer: number;
   isActive: boolean;
+  canBeStopped: boolean;
 
   constructor(private taskService: TaskService) {
     this.deleted = new EventEmitter<number>();
+  
+    taskService.taskStarted.subscribe((task: ITask) => {
+      if (task.id !== this.task.id) {
+        this.pauseTimer();
+      }
+    });
   }
 
   ngOnInit() {
     this.setPrettyTime();
     this.isActive = false;
+    this.canBeStopped = !(this.task.time.hours === 0 && this.task.time.minutes === 0 && this.task.time.seconds === 0);
   }
 
   setPrettyTime(): void {
@@ -46,6 +54,7 @@ export class TaskComponent implements OnInit {
     this.isActive = false;
     this.task.time.hours = this.task.time.minutes = this.task.time.seconds = 0;
     this.setPrettyTime();
+    this.canBeStopped = false;
   }
 
   startTimer(): void {
@@ -58,6 +67,8 @@ export class TaskComponent implements OnInit {
       const dateStarted: Date = new Date();
       const timeAlreadyElapsed = this.task.time.seconds + this.task.time.minutes * 60 + this.task.time.hours * 3600;
       this.timer = window.setInterval(() => this.increaseTime(dateStarted, timeAlreadyElapsed), 1000);
+      this.taskService.announceTaskStarted(this.task);
+      this.canBeStopped = true;
     }
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { AppComponent } from '../app.component';
 import { TaskService } from '../services/task.service';
@@ -10,29 +11,43 @@ import { ITask } from '../models/task';
   templateUrl: './create-task.component.html',
   styleUrls: ['./create-task.component.css']
 })
-export class CreateTaskComponent {
-  taskName: string;
-  projectName: string;
+export class CreateTaskComponent implements OnInit {
+  createForm: FormGroup;
 
-  constructor(public dialogRef: MatDialogRef<AppComponent>, private taskService: TaskService) { }
+  constructor(
+    public dialogRef: MatDialogRef<AppComponent>, 
+    private taskService: TaskService, 
+    private fb: FormBuilder) { }
 
-  save(): void {
-    this.taskService.getHighestId().subscribe((highestId: number) => {
-      const task: ITask = {
-        id: highestId + 1,
-        name: this.taskName,
-        project: this.projectName,
-        isCurrent: true,
-        time: {
-          hours: 0,
-          minutes: 0,
-          seconds: 0
-        }
-      };
-
-      this.taskService.saveTask(task);
-      this.taskService.announceTaskAdded(task);
-      this.dialogRef.close();
+  ngOnInit() {
+    this.createForm = this.fb.group({
+      taskName: ['', Validators.required],
+      projectName: ['', Validators.required],
     });
+  }
+
+  save(form: FormGroup): void {
+    if (!form.valid) {
+      alert('Nee')
+    } else {
+      this.taskService.getHighestId().subscribe((highestId: number) => {
+        const task: ITask = {
+          id: highestId + 1,
+          name: form.value.taskName,
+          project: form.value.projectName,
+          isCurrent: true,
+          time: {
+            hours: 0,
+            minutes: 0,
+            seconds: 0
+          }
+        };
+  
+        this.taskService.saveTask(task);
+        this.taskService.announceTaskAdded(task);
+        this.dialogRef.close();
+      });
+    }
+    
   }
 }

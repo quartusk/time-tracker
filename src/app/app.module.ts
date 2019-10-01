@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TaskListComponent } from './task-list/task-list.component';
@@ -16,19 +17,18 @@ import { CreateTaskComponent } from './create-task/create-task.component';
     TaskListComponent,
     TaskComponent,
     CreateTaskComponent
-
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     CreateTaskComponent
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

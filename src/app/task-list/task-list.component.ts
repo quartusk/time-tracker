@@ -23,7 +23,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
     // Filter tasks when search has occured.
     notifyService.search.subscribe((searchTerm: string) => {
       this.tasks = this.unfilteredTasks.filter((task: ITask) => {
-        return (task.name.indexOf(searchTerm) !== -1 || task.project.indexOf(searchTerm) !== -1);
+        return (task.name.toUpperCase().indexOf(searchTerm.toUpperCase()) !== -1 || task.project.toUpperCase().indexOf(searchTerm.toUpperCase()) !== -1);
       });
     });
 

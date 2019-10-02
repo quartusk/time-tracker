@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { AppComponent } from '../app.component';
 import { TaskService } from '../services/task.service';
 import { ITask } from '../models/task';
+import { NotifyService } from '../services/notify.service';
 
 @Component({
   selector: 'app-create-task',
@@ -17,6 +18,7 @@ export class CreateTaskComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AppComponent>,
     private taskService: TaskService,
+    private notifyService: NotifyService,
     private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class CreateTaskComponent implements OnInit {
       };
 
       this.taskService.saveTask(task);
-      this.taskService.announceTaskAdded(task);
+      this.notifyService.announceTaskAdded(task);
       this.dialogRef.close();
     });
   }

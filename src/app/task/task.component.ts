@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { ITask } from '../models/task';
 import { TaskService } from '../services/task.service';
+import { NotifyService } from '../services/notify.service';
 
 @Component({
   selector: 'app-task',
@@ -18,11 +19,11 @@ export class TaskComponent implements OnInit {
   isActive: boolean;
   canBeStopped: boolean;
 
-  constructor(private taskService: TaskService) {
+  constructor(private notifyService: NotifyService) {
     this.deleted = new EventEmitter<number>();
     this.stopped = new EventEmitter<number>();
   
-    taskService.taskStarted.subscribe((task: ITask) => {
+    notifyService.taskStarted.subscribe((task: ITask) => {
       if (task.id !== this.task.id) {
         this.pauseTimer();
       }
@@ -69,7 +70,7 @@ export class TaskComponent implements OnInit {
       const dateStarted: Date = new Date();
       const timeAlreadyElapsed = this.task.time.seconds + this.task.time.minutes * 60 + this.task.time.hours * 3600;
       this.timer = window.setInterval(() => this.increaseTime(dateStarted, timeAlreadyElapsed), 1000);
-      this.taskService.announceTaskStarted(this.task);
+      this.notifyService.announceTaskStarted(this.task);
       this.canBeStopped = true;
     }
   }

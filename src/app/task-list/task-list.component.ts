@@ -14,7 +14,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
   unfilteredTasks: ITask[];
 
   constructor(private taskService: TaskService, private notifyService: NotifyService) {
-    taskService.taskAdded.subscribe((task: ITask) => {
+    notifyService.taskAdded.subscribe((task: ITask) => {
       this.tasks.push(task);
     });
 

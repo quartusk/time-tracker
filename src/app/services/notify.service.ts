@@ -14,17 +14,27 @@ export class NotifyService {
   taskAdded = this.taskAddedSource.asObservable();
   taskStarted = this.taskStartedSource.asObservable();
 
+  /**
+   * Notifies subscribers that a search has occured.
+   * @param searchTerm The searched value.
+   */
   announceSearch(searchTerm: string) {
     this.searchSource.next(searchTerm);
   }
 
+  /**
+   * Notifies subsribers that a task has been started.
+   * @param task The task that has been started.
+   */
   announceTaskStarted(task: ITask) {
     this.taskStartedSource.next(task);
   }
 
+  /**
+   * Notifies subsribers that a new task has been created.
+   * @param task The task that has been created.
+   */
   announceTaskAdded(task: ITask) {
     this.taskAddedSource.next(task);
   }
-
-  constructor() { }
 }

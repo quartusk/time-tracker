@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { CreateTaskComponent } from './create-task/create-task.component';
@@ -10,16 +10,21 @@ import { NotifyService } from './services/notify.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  // The value of the search input.
   searchTerm: string;
 
   constructor(public dialog: MatDialog, private notifyService: NotifyService) {}
 
+  /**
+   * Opens a dialog to create a new task.
+   */
   openCreateDialog(): void {
-    const dialogRef = this.dialog.open(CreateTaskComponent, {
-      width: '400px',
-    });
+    this.dialog.open(CreateTaskComponent, { width: '400px' });
   }
 
+  /**
+   * Notifies subscribed components that a search has occured.
+   */
   search() {
     this.notifyService.announceSearch(this.searchTerm);
   }

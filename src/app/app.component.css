@@ -15,6 +15,15 @@
   margin-left: 5px;
 }
 
+.btn {
+  height: calc(1.5em + .75rem + 2px);
+}
+
+.is-active {
+  color: #000;
+  border-bottom: 5px solid #007bff;
+}
+
 nav {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -29,13 +38,4 @@ a {
 
 a:hover {
   text-decoration: none;
-}
-
-.btn {
-  height: calc(1.5em + .75rem + 2px);
-}
-
-.is-active {
-  color: #000;
-  border-bottom: 5px solid #007bff;
 }

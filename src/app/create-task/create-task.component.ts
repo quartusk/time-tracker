@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AppComponent } from '../app.component';
 import { TaskService } from '../services/task.service';
@@ -28,6 +28,10 @@ export class CreateTaskComponent implements OnInit {
     });
   }
 
+  /**
+   * Saves the new task.
+   * @param form The component's form group.
+   */
   save(form: FormGroup): void {
     this.taskService.getHighestId().subscribe((highestId: number) => {
       const task: ITask = {

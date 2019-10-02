@@ -11,18 +11,24 @@ import { NotifyService } from '../services/notify.service';
 })
 export class TaskComponent implements OnInit {
   @Input() task: ITask;
+  // The index of the task within the containing list.
   @Input() index: number;
   @Output() deleted: EventEmitter<number>;
   @Output() stopped: EventEmitter<number>;
-  prettyTime: string;
+
   timer: number;
+  // The formatted time to be displayed.
+  prettyTime: string;
+  // Show whether the timer is running.
   isActive: boolean;
+  // Determines whether the task can be stopped or whether the timer can be reset.
   canBeStopped: boolean;
 
   constructor(private notifyService: NotifyService) {
     this.deleted = new EventEmitter<number>();
     this.stopped = new EventEmitter<number>();
 
+    // Pause all other tasks when a new task is started.
     notifyService.taskStarted.subscribe((task: ITask) => {
       if (task.id !== this.task.id) {
         this.pauseTimer();
@@ -36,14 +42,24 @@ export class TaskComponent implements OnInit {
     this.canBeStopped = !(this.task.time.hours === 0 && this.task.time.minutes === 0 && this.task.time.seconds === 0);
   }
 
+  /**
+   * Sets the formatted time to be displayed.
+   */
   setPrettyTime(): void {
     this.prettyTime = this.determinePrettyTime();
   }
 
+  /**
+   * Sets the format of the displayed time.
+   */
   determinePrettyTime(): string {
     return `${this.padTime(this.task.time.hours)}:${this.padTime(this.task.time.minutes)}:${this.padTime(this.task.time.seconds)}`;
   }
 
+  /**
+   * Pads an integer time value with a leading 0 if it is smaller than 10.
+   * @param time The integer time value.
+   */
   padTime(time: number): string {
     if (time < 10) {
       return `0${time}`;
@@ -52,6 +68,9 @@ export class TaskComponent implements OnInit {
     return `${time}`;
   }
 
+  /**
+   * Resets the time.
+   */
   resetTimer(): void {
     this.pauseTimer();
     this.isActive = false;
@@ -60,6 +79,9 @@ export class TaskComponent implements OnInit {
     this.canBeStopped = false;
   }
 
+  /**
+   * Starts the timer on a task.
+   */
   startTimer(): void {
     if (!this.isActive) {
       if (!this.task.dateStarted) {
@@ -75,6 +97,9 @@ export class TaskComponent implements OnInit {
     }
   }
 
+  /**
+   * Pauses the timer.
+   */
   pauseTimer(): void {
     if (this.isActive) {
       this.isActive = false;
@@ -82,6 +107,9 @@ export class TaskComponent implements OnInit {
     }
   }
 
+  /**
+   * Stops the timer and moves a task to the archived list.
+   */
   stopTimer(): void {
     this.pauseTimer();
     this.task.dateEnded = new Date();
@@ -89,14 +117,27 @@ export class TaskComponent implements OnInit {
     this.stopped.emit(this.task.id);
   }
 
+  /**
+   * Deletes a task.
+   */
   delete(): void {
     this.deleted.emit(this.task.id);
   }
 
+  /**
+   * Determines the difference in seconds between two dates.
+   * @param dateStarted The initial date.
+   * @param currentDate The end date.
+   */
   private determineDifferenceInTime(dateStarted: any, currentDate: any) {
     return Math.floor(Math.abs(dateStarted - currentDate) / 1000);
   }
 
+  /**
+   * Increases the time.
+   * @param dateStarted The date the timer was started.
+   * @param timeAlreadyElapsed Any time already elapsed on the task.
+   */
   private increaseTime(dateStarted: Date, timeAlreadyElapsed: number): void {
     let secondsElapsed = this.determineDifferenceInTime(dateStarted, new Date()) + timeAlreadyElapsed;
     this.task.time.hours = Math.floor(secondsElapsed / 3600);

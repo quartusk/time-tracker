@@ -23,14 +23,24 @@ export class ArchiveTaskComponent implements OnInit {
     this.setPrettyTime();
   }
 
+  /**
+   * Sets the formatted time to be displayed.
+   */
   setPrettyTime(): void {
     this.prettyTime = this.determinePrettyTime();
   }
 
+  /**
+   * Sets the format of the displayed time.
+   */
   determinePrettyTime(): string {
     return `${this.padTime(this.task.time.hours)}:${this.padTime(this.task.time.minutes)}:${this.padTime(this.task.time.seconds)}`;
   }
 
+  /**
+   * Pads an integer time value with a leading 0 if it is smaller than 10.
+   * @param time The integer time value.
+   */
   padTime(time: number): string {
     if (time < 10) {
       return `0${time}`;
@@ -39,10 +49,16 @@ export class ArchiveTaskComponent implements OnInit {
     return `${time}`;
   }
 
+  /**
+   * Deletes an archived task.
+   */
   delete(): void {
     this.deleted.emit(this.task.id);
   }
 
+  /**
+   * Moves an archived task back to the current list.
+   */
   moveToCurrent(): void {
     this.task.isCurrent = true;
     this.movedToCurrent.emit(this.task.id);

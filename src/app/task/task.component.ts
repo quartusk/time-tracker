@@ -29,8 +29,8 @@ export class TaskComponent implements OnInit {
     this.stopped = new EventEmitter<number>();
 
     // Pause all other tasks when a new task is started.
-    notifyService.taskStarted.subscribe((task: ITask) => {
-      if (task.id !== this.task.id) {
+    notifyService.taskStarted.subscribe((id: number) => {
+      if (id !== this.task.id) {
         this.pauseTimer();
       }
     });
@@ -92,7 +92,7 @@ export class TaskComponent implements OnInit {
       const dateStarted: Date = new Date();
       const timeAlreadyElapsed = this.task.time.seconds + this.task.time.minutes * 60 + this.task.time.hours * 3600;
       this.timer = window.setInterval(() => this.increaseTime(dateStarted, timeAlreadyElapsed), 1000);
-      this.notifyService.announceTaskStarted(this.task);
+      this.notifyService.announceTaskStarted(this.task.id);
       this.canBeStopped = true;
     }
   }

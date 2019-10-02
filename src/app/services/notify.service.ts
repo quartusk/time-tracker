@@ -8,7 +8,7 @@ import { ITask } from '../models/task';
 export class NotifyService {
   private searchSource = new Subject<string>();
   private taskAddedSource = new Subject<ITask>();
-  private taskStartedSource = new Subject<ITask>();
+  private taskStartedSource = new Subject<number>();
 
   search = this.searchSource.asObservable();
   taskAdded = this.taskAddedSource.asObservable();
@@ -24,10 +24,10 @@ export class NotifyService {
 
   /**
    * Notifies subsribers that a task has been started.
-   * @param task The task that has been started.
+   * @param id The id of the task that has been started.
    */
-  announceTaskStarted(task: ITask) {
-    this.taskStartedSource.next(task);
+  announceTaskStarted(id: number) {
+    this.taskStartedSource.next(id);
   }
 
   /**

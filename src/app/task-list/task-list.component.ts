@@ -34,9 +34,10 @@ export class TaskListComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Save the tasks when Angular destroys the component.
+   * Pauses and save the tasks when Angular destroys the component.
    */
   ngOnDestroy() {
+    this.notifyService.announceTaskStarted(-1);
     this.saveTasks();
   }
 

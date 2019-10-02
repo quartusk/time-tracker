@@ -24,8 +24,8 @@ export class TaskListComponent implements OnInit, OnDestroy {
       });
     });
 
-    this.taskService.getCurrentTasks().subscribe((currentTasks: ITask[]) => { 
-      this.tasks = this.unfilteredTasks = currentTasks; 
+    this.taskService.getCurrentTasks().subscribe((currentTasks: ITask[]) => {
+      this.tasks = this.unfilteredTasks = currentTasks;
     });
   }
 
@@ -36,7 +36,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     window.onbeforeunload = () => {
       this.saveTasks();
-    }
+    };
   }
 
   deleteTask(id: number): void {

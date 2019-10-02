@@ -22,7 +22,7 @@ export class TaskComponent implements OnInit {
   constructor(private notifyService: NotifyService) {
     this.deleted = new EventEmitter<number>();
     this.stopped = new EventEmitter<number>();
-  
+
     notifyService.taskStarted.subscribe((task: ITask) => {
       if (task.id !== this.task.id) {
         this.pauseTimer();
@@ -89,7 +89,7 @@ export class TaskComponent implements OnInit {
     this.stopped.emit(this.task.id);
   }
 
-  delete(): void {    
+  delete(): void {
     this.deleted.emit(this.task.id);
   }
 

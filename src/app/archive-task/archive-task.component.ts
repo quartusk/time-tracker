@@ -39,7 +39,7 @@ export class ArchiveTaskComponent implements OnInit {
     return `${time}`;
   }
 
-  delete(): void {    
+  delete(): void {
     this.deleted.emit(this.task.id);
   }
 

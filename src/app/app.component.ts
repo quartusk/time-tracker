@@ -9,20 +9,8 @@ import { TaskService } from './services/task.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-  navActiveStatus: boolean[];
-
+export class AppComponent {
   constructor(public dialog: MatDialog, private taskService: TaskService) {}
-
-  ngOnInit(): void {
-    this.navActiveStatus = [true, false, false];
-  }
-
-  setNavActiveStatus(navIndex: number): void {
-    for (let i = 0; i < 3; i++) {
-      this.navActiveStatus[i] = i === navIndex;
-    }
-  }
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateTaskComponent, {

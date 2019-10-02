@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 import { ITask } from '../models/task';
 import { TaskService } from '../services/task.service';
+import { NotifyService } from '../services/notify.service';
 
 @Component({
   selector: 'app-task-list',
@@ -11,13 +11,22 @@ import { TaskService } from '../services/task.service';
 })
 export class TaskListComponent implements OnInit, OnDestroy {
   tasks: ITask[];
+  unfilteredTasks: ITask[];
 
-  constructor(private taskService: TaskService, private route: ActivatedRoute) {
+  constructor(private taskService: TaskService, private notifyService: NotifyService) {
     taskService.taskAdded.subscribe((task: ITask) => {
       this.tasks.push(task);
     });
 
-    this.taskService.getCurrentTasks().subscribe((currentTasks: ITask[]) => { this.tasks = currentTasks; });
+    notifyService.search.subscribe((searchTerm: string) => {
+      this.tasks = this.unfilteredTasks.filter((task: ITask) => {
+        return (task.name.indexOf(searchTerm) !== -1 || task.project.indexOf(searchTerm) !== -1);
+      });
+    });
+
+    this.taskService.getCurrentTasks().subscribe((currentTasks: ITask[]) => { 
+      this.tasks = this.unfilteredTasks = currentTasks; 
+    });
   }
 
   ngOnDestroy() {

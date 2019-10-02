@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ITask } from '../models/task';
 import { TaskService } from '../services/task.service';
+import { NotifyService } from '../services/notify.service';
 
 @Component({
   selector: 'app-archive-list',
@@ -10,9 +11,18 @@ import { TaskService } from '../services/task.service';
 })
 export class ArchiveListComponent implements OnInit {
   tasks: ITask[];
+  unfilteredTasks: ITask[];
 
-  constructor(private taskService: TaskService) { 
-    this.taskService.getArchivedTasks().subscribe((archivedTasks: ITask[]) => { this.tasks = archivedTasks; });
+  constructor(private taskService: TaskService, notifyService: NotifyService) { 
+    notifyService.search.subscribe((searchTerm: string) => {
+      this.tasks = this.unfilteredTasks.filter((task: ITask) => {
+        return (task.name.indexOf(searchTerm) !== -1 || task.project.indexOf(searchTerm) !== -1);
+      });
+    });
+
+    this.taskService.getArchivedTasks().subscribe((archivedTasks: ITask[]) => { 
+      this.tasks = this.unfilteredTasks = archivedTasks; 
+    });
   }
 
   ngOnInit() {

@@ -34,7 +34,7 @@ export class TaskService {
 
     for (let i = 1; i <= highestId; i++) {
       this.getTask(i).subscribe((task) => {
-        if (task.isCurrent) {
+        if (task !== null && task.isCurrent) {
           tasks.push(task);
         }
       });
@@ -49,7 +49,7 @@ export class TaskService {
 
     for (let i = 1; i <= highestId; i++) {
       this.getTask(i).subscribe((task) => {
-        if (!task.isCurrent) {
+        if (task !== null && !task.isCurrent) {
           tasks.push(task);
         }
       });

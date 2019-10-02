@@ -3,11 +3,11 @@
     <header class="d-flex justify-content-lg-end align-items-center">
       <h1 class="title">Time Tracker</h1>
       <button class="btn btn-primary" (click)="openCreateDialog()"><i class="fa fa-plus"></i> Add Task</button>
-      <input type="text" placeholder="Search" class="form-control search">
+      <input (input)="search()" [(ngModel)]="searchTerm" type="text" placeholder="Search" class="form-control search">
     </header>
     <nav>
-      <a routerLinkActive="is-active" routerLink="current">Current</a>
-      <a routerLinkActive="is-active" routerLink="archive">Archive</a>
+      <a routerLinkActive="is-active" routerLink="current" (click)="searchTerm = ''">Current</a>
+      <a routerLinkActive="is-active" routerLink="archive" (click)="searchTerm = ''">Archive</a>
     </nav>
     <router-outlet></router-outlet>
   </section>

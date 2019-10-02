@@ -6,8 +6,8 @@
       <input type="text" placeholder="Search" class="form-control search">
     </header>
     <nav>
-      <a routerLink="current" [ngClass]="{'is-active': navActiveStatus[0]}" (click)="setNavActiveStatus(0)">Current</a>
-      <a routerLink="archive" [ngClass]="{'is-active': navActiveStatus[1]}" (click)="setNavActiveStatus(1)">Archive</a>
+      <a #currentLink="routerLinkActive" routerLinkActive routerLink="current" [ngClass]="{'is-active': currentLink.isActive}" (click)="setNavActiveStatus(0)">Current</a>
+      <a #archiveLink="routerLinkActive" routerLinkActive routerLink="archive" [ngClass]="{'is-active': archiveLink.isActive}" (click)="setNavActiveStatus(1)">Archive</a>
     </nav>
     <router-outlet></router-outlet>
   </section>

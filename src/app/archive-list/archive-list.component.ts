@@ -18,7 +18,9 @@ export class ArchiveListComponent {
       this.pauseAllTasks();
 
       this.tasks = this.unfilteredTasks.filter((task: ITask) => {
-        return (task.name.toUpperCase().indexOf(searchTerm.toUpperCase()) !== -1 || task.project.toUpperCase().indexOf(searchTerm.toUpperCase()) !== -1);
+        return (
+          task.name.toUpperCase().indexOf(searchTerm.toUpperCase()) !== -1 ||
+          task.project.toUpperCase().indexOf(searchTerm.toUpperCase()) !== -1);
       });
     });
 

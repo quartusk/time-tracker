@@ -17,13 +17,14 @@ export class TaskListComponent implements OnInit, OnDestroy {
   constructor(private taskService: TaskService, private notifyService: NotifyService) {
     // Add a task when a new task has been created.
     notifyService.taskAdded.subscribe((task: ITask) => {
-      this.tasks.push(task);
+      this.unfilteredTasks.push(task);
+      this.tasks = this.unfilteredTasks;      
     });
 
     // Filter tasks when search has occured.
     notifyService.search.subscribe((searchTerm: string) => {
       this.pauseAllTasks();
-      
+
       this.tasks = this.unfilteredTasks.filter((task: ITask) => {
         return (task.name.toUpperCase().indexOf(searchTerm.toUpperCase()) !== -1 || task.project.toUpperCase().indexOf(searchTerm.toUpperCase()) !== -1);
       });

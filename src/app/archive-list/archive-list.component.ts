@@ -12,9 +12,11 @@ export class ArchiveListComponent {
   tasks: ITask[];
   unfilteredTasks: ITask[];
 
-  constructor(private taskService: TaskService, notifyService: NotifyService) {
+  constructor(private taskService: TaskService, private notifyService: NotifyService) {
     // Filter tasks when search has occured.
     notifyService.search.subscribe((searchTerm: string) => {
+      this.pauseAllTasks();
+
       this.tasks = this.unfilteredTasks.filter((task: ITask) => {
         return (task.name.toUpperCase().indexOf(searchTerm.toUpperCase()) !== -1 || task.project.toUpperCase().indexOf(searchTerm.toUpperCase()) !== -1);
       });
@@ -24,6 +26,13 @@ export class ArchiveListComponent {
     this.taskService.getArchivedTasks().subscribe((archivedTasks: ITask[]) => {
       this.tasks = this.unfilteredTasks = archivedTasks;
     });
+  }
+
+  /**
+   * Pauses all tasks;
+   */
+  pauseAllTasks(): void {
+    this.notifyService.announceTaskStarted(-1);
   }
 
   /**

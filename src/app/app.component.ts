@@ -22,6 +22,7 @@ export class AppComponent {
     this.notifyService.announceTaskStarted(-1);
     this.dialog.open(CreateTaskComponent, { width: '400px' });
     this.searchTerm = '';
+    this.search();
   }
 
   /**

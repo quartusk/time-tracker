@@ -76,6 +76,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
    * @param id The id of the task to be removed.
    */
   removeTask(id: number): void {
+    this.unfilteredTasks = this.unfilteredTasks.filter((val: ITask) => val.id !== id);
     this.tasks = this.tasks.filter((val: ITask) => val.id !== id);
   }
 

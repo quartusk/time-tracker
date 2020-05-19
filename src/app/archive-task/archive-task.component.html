@@ -1,15 +1,29 @@
-<section class="task d-flex justify-content-end align-items-center" [ngClass]="{'is-not-top': index != 0}">
-  <section class="left-side">
-    <section class="description">
-      <p class="task-name">{{task.name}}</p>
-      <p>{{task.project}}</p>
-    </section>
-  </section>
-  <section class="time">
-    {{prettyTime}}
-  </section>
-  <button class="btn btn-primary" (click)="moveToCurrent()"><i class="fa fa-reply"></i></button>
-  <button class="btn btn-danger" (click)="delete()"><i class="fa fa-trash"></i></button>
-  <section>
-  </section>
-</section>
+<div class="task" fxLayout="row" fxLayoutAlign="start center" fxLayout.lt-sm="column" fxLayoutAlign.lt-sm="start end"
+  [ngClass]="{'is-not-top': index != 0}">
+
+  <div fxFlex class="full-width" fxLayout="row" fxLayoutAlign="start center">
+
+    <div class="left-side">
+
+      <div class="description">
+
+        <p class="task-name">{{task.name}}</p>
+
+        <p>{{task.project}}</p>
+      </div>
+    </div>
+
+    <div fxFlex></div>
+
+    <div class="time">
+      {{prettyTime}}
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="end center">
+
+    <button class="btn btn-primary" (click)="moveToCurrent()"><i class="fa fa-reply"></i></button>
+
+    <button class="btn btn-danger" (click)="delete()"><i class="fa fa-trash"></i></button>
+  </div>
+</div>

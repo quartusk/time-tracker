@@ -1,14 +1,27 @@
 <main class="container">
-  <section class="menu">
-    <header class="d-flex justify-content-lg-end align-items-center">
+
+  <div class="menu">
+
+    <header fxLayout="row" fxLayout.lt-sm="column">
+
       <h1 class="title">Time Tracker</h1>
-      <button class="btn btn-primary" (click)="openCreateDialog()"><i class="fa fa-plus"></i> Add Task</button>
-      <input (input)="search()" [(ngModel)]="searchTerm" type="text" placeholder="Search" class="form-control search">
+
+      <div fxLayout="row">
+
+        <button class="btn btn-primary" (click)="openCreateDialog()"><i class="fa fa-plus"></i></button>
+        <input (input)="search()" [(ngModel)]="searchTerm" type="text" placeholder="Search" class="form-control search">
+      </div>
+      
     </header>
+
     <nav>
+
       <a routerLinkActive="is-active" routerLink="current" (click)="searchTerm = ''">Current</a>
+
       <a routerLinkActive="is-active" routerLink="archive" (click)="searchTerm = ''">Archive</a>
+
     </nav>
+    
     <router-outlet></router-outlet>
-  </section>
+  </div>
 </main>

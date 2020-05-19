@@ -1,20 +1,38 @@
-<section class="task d-flex justify-content-end align-items-center" [ngClass]="{'is-not-top': index != 0}">
-  <section class="left-side">
-    <section class="description">
+<div class="task" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="start center" fxLayoutAlign.lt-sm="start end"
+  [ngClass]="{'is-not-top': index != 0}">
+
+  <div class="full-width" fxLayout="row" fxFlex fxLayoutAlign="start center">
+
+    <div class="description">
+
       <p class="task-name">{{task.name}}</p>
+
       <p>{{task.project}}</p>
-    </section>
-  </section>
-  <section class="time">
-    {{prettyTime}}
-  </section>
-  <section class="btn-group functions">
+    </div>
+
+    <div fxFlex></div>
+
+    <div class="time">
+      {{prettyTime}}
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="space-between">
+
+    <div class="btn-group functions">
+
       <button class="btn btn-primary" (click)="startTimer()" [disabled]="isActive"><i class="fa fa-play"></i></button>
+
       <button class="btn btn-primary" (click)="pauseTimer()" [disabled]="!isActive"><i class="fa fa-pause"></i></button>
-      <button class="btn btn-primary" (click)="stopTimer()" [disabled]="!canBeStopped"><i class="fa fa-stop"></i></button>
-      <button class="btn btn-primary" (click)="resetTimer()" [disabled]="!canBeStopped"><i class="fa fa-refresh"></i></button>
-  </section>
-  <button class="btn btn-danger" (click)="delete()"><i class="fa fa-trash"></i></button>
-  <section>
-  </section>
-</section>
+
+      <button class="btn btn-primary" (click)="stopTimer()" [disabled]="!canBeStopped"><i
+          class="fa fa-stop"></i></button>
+
+      <button class="btn btn-primary" (click)="resetTimer()" [disabled]="!canBeStopped"><i
+          class="fa fa-refresh"></i></button>
+
+    </div>
+
+    <button class="btn btn-danger" (click)="delete()"><i class="fa fa-trash"></i></button>
+  </div>
+</div>

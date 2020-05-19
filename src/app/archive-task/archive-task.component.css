@@ -8,8 +8,8 @@
   padding: 10px;
 }
 
-.left-side {
-  margin-right: auto;
+.full-width {
+  width: 100%;
 }
 
 .time {

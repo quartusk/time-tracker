@@ -1,5 +1,8 @@
 <form [formGroup]="createForm" (ngSubmit)="save(createForm)">
+
   <input formControlName="taskName" placeholder="Task name" class="form-control">
+
   <input formControlName="projectName" placeholder="Project name" class="form-control">
+  
   <button [disabled]="createForm.get('taskName').hasError('required') || createForm.get('projectName').hasError('required')" type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
 </form>

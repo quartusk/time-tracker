@@ -9,7 +9,7 @@
       <div fxLayout="row">
 
         <button class="btn btn-primary" (click)="openCreateDialog()"><i class="fa fa-plus"></i></button>
-        <input (input)="search()" [(ngModel)]="searchTerm" type="text" placeholder="Search" class="form-control search">
+        <input fxFlex (input)="search()" [(ngModel)]="searchTerm" type="text" placeholder="Search" class="form-control search">
       </div>
       
     </header>
